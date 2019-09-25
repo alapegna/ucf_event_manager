@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Super Admin Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+      #button {
+          border: 2px solid black;
+          background: #ffe;
+          border-radius: 5px;
+      }
+      #login_btn {
+          display: block;
+          width: 100%;
+          line-height: 2em;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 5px;
+      }
+      #login_btn:hover {
+          color: red;
+          background: #eff;
+      }
+
+    </style>
+    <script type="text/javascript" src="js/code.js"></script>
+
+  </head>
+
+  <body onload="javascript:getUniData()">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">University Event Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="events.html">View Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="createEvent.html">Create Event</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="rso.html">RSOs</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="superAdmin.html">Super Admin</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" onclick="doLogout()" href="login.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" id="main_body">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Super Admin Management</h1>
+          <h3>University Profile</h3>
+          <div class="form-bottom" onsubmit="return updateUniData();">
+            <form role="form" action="" method="post" class="login-form">
+              <div class="form-group">
+                <table id="uniProfileTable" align="center">
+                  <tbody>
+                    <tr>
+                      <td><strong>UNIVERSITY NAME</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan=4>
+                        <input type="text" name="form-username" placeholder="University Name" class="form-username form-control" id="uniName" disabled>
+                        <span id="uniNameAlert"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><b>ADDRESS</b></td>
+                      <td><b>CITY</b></td>
+                      <td><b>STATE</b></td>
+                      <td><b>ZIP CODE</b></td>                   
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="text" name="form-username" placeholder="Address" class="form-username form-control" id="uniAddress">
+                        <span id="uniAddressAlert"></span>
+                      </td>
+                      <td>
+                        <input type="text" name="form-username" placeholder="City" class="form-username form-control" id="uniCity">
+                        <span id="uniCityAlert"></span>    
+                      </td>
+                      <td>
+                        <input type="text" name="form-username" placeholder="State" class="form-username form-control" id="uniState">
+                        <span id="uniStateAlert"></span>    
+                      </td>  
+                      <td>
+                        <input type="text" name="form-username" placeholder="Zip Code" class="form-username form-control" id="uniZip">
+                        <span id="uniZipAlert"></span>    
+                      </td>                 
+                    </tr>
+                    <tr>
+                     <td><b>UNIVERSITY DESCRIPTION</b></td>
+                    </tr>
+                    <tr>
+                      <td colspan = 4>
+                        <textarea placeholder="University Description" class="form-username form-control" id="uniDesc" rows=3 wrap="soft"></textarea>
+                        <span id="uniDescAlert"></span>    
+                      </td>  
+                    </tr>
+                    <tr>
+                      <td><b>Number of Students</b></td>
+                      <td colspan=2><b>University Logo URL</b></td>
+                      <td><b>University Logo Preview</b></td>
+                    </tr>
+                    <tr id="imgRow">
+                      <td>
+                        <input type="text" name="form-username" placeholder="Number of Students" class="form-username form-control" id="uniStudents">
+                        <span id="uniStudentsAlert"></span>    
+                      </td>
+                      <td colspan = 2>
+                        <input type="text" name="form-username" placeholder="University Logo URL" class="form-username form-control" id="uniLogoUrl">
+                        <span id="uniLogoUrlAlert"></span>    
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan = 4>
+                          <input type="submit" value="Update University Profile" class="btn btn-primary btn-block">
+                          <span id="updateUniAlert"></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="form-bottom">
+            <br><br>
+            <h3>Pending Events</h3>
+            <form role="form" action="" method="post" class="login-form">
+              <div class="form-group">
+                <table id="pendingTable" align="center" border=1>
+                  <thead>
+                    <tr>
+                      <td><b>Event ID</b></td>
+                      <td><b>Event Name</b></td>
+                      <td><b>Event Type</b></td>
+                      <td><b>Event Category</b></td>
+                      <td><b>Event Description</b></td>
+                      <td><b>Event Start Time</b></td>
+                      <td><b>Event End Time</b></td>
+                      <td><b>Event Date</b></td>
+                      <td><b>Contact Phone</b></td>
+                      <td><b>Contact Email</b></td>
+                      <td><b>Location</b></td>
+                      <td><b>Approve?</b></td>
+                      <td><b>Decline?</b></td>
+                    </tr>
+                  </thead>
+                    <tbody>
+                  </tbody>
+                </table>
+                <span id="pendingTableAlert"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

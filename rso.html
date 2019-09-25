@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RSO Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+      #button {
+          border: 2px solid black;
+          background: #ffe;
+          border-radius: 5px;
+      }
+      #login_btn {
+          display: block;
+          width: 100%;
+          line-height: 2em;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 5px;
+      }
+      #login_btn:hover {
+          color: red;
+          background: #eff;
+      }
+
+    </style>
+    <script type="text/javascript" src="js/code.js"></script>
+
+  </head>
+
+  <body onload="javascript:UserRSO()">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">University Event Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="events.html">View Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="createEvent.html">Create Event</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="rso.html">RSOs</a>
+            </li>
+            <li class="nav-item" id="superLink">
+              <a class="nav-link" href="superAdmin.html">Super Admin</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" onclick="doLogout()" href="login.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" id="main_body">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">RSO Management</h1>
+        </div>
+        <div>
+          <h3>Your Current RSOs</h3>
+          <div>
+            <table id ="viewUserRSOs" border="1">
+              <thead>
+                <tr>
+                  <th>RSO Name</th>
+                  <th>RSO Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <span id="viewRsoAlert"></span>
+           </div>
+          </br>
+          </br>
+          <h3>Join RSOs</h3>
+           <div class="form-group">
+            <select id = "rsoList" onchange="getRSODesc()">
+              <option value=-1>Select an RSO to join</option>
+            </select>
+            <span id="getRsoAlert"></span>
+            <br><br>
+            <b>RSO Description:</b> <span id="rsoDescData">No RSO Selected</span>
+            <br><br>
+            <div onsubmit="return joinRSO();">
+              <form role="form" action="" method="post" class="login-form">
+                <input type="submit" value="Join RSO" class="btn btn-primary btn-block">
+                <b><span id="joinRsoAlert"></span></b>
+              </form>
+            </div>
+           </div>
+
+          <h3>Create RSO</h3> 
+          <div onsubmit="return createRSO();">
+            <form role="form" action="" method="post" class="login-form">
+              <div class="form-group">
+                  <label class="sr-only" for="form-username">RSO Name</label>
+                  <input type="text" name="form-username" placeholder="RSO Name" class="form-username form-control" id="newRsoName">
+                  <span id="newRsoNameAlert"></span>
+              </div>
+              <div class="form-group">
+                  <label class="sr-only" for="form-username">RSO Description</label>
+                  <input type="text" name="form-username" placeholder="RSO Description" class="form-username form-control" id="newRsoDesc" size=100>
+                  <span id="newRsoDescAlert"></span>
+              </div>
+              <input type="submit" value="Create RSO" class="btn btn-primary btn-block">
+              <span id="createRsoAlert"></span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

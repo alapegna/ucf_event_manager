@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+
+    </style>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">University Event Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="register.html">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Register Your New Account</h1>
+            <center><h3>Complete the following fields to create your new account.</h3></center>
+            <div class="form-bottom" onsubmit="return addUser();">
+              <form role="form" action="" method="post" class="login-form">
+                  <div class="form-group">
+                      <label class="sr-only" for="form-username">First Name</label>
+                      <input type="text" name="form-username" placeholder="First name" class="form-username form-control" id="newUserFirst">
+                      <span id="firstNameAlert"></span>
+                  </div>
+                  <div class="form-group">
+                      <label class="sr-only" for="form-username">Last Name</label>
+                      <input type="text" name="form-username" placeholder="Last Name" class="form-username form-control" id="newUserLast">
+                      <span id="lastNameAlert"></span>
+                  </div>
+                    <div class="form-group" style="width:200px">
+                      <label class="sr-only" for="form-username">University</label>
+                      <select id="newUniversity">
+                        <option>Select a University</option>
+                        <option>University of Central Florida</option>
+                        <option>University of South Florida</option>
+                      </select>
+                      <span id="universityAlert"></span>
+                  </div>
+                  <div class="form-group">
+                      <label class="sr-only" for="form-username">Email</label>
+                      <input type="text" name="form-username" placeholder="Email" class="form-username form-control" id="newUserEmail">
+                      <span id="emailAlert"></span>
+                  </div>
+                  <div class="form-group">
+                      <label class="sr-only" for="form-username">Username</label>
+                      <input type="text" name="form-username" placeholder="Username" class="form-username form-control" id="newUserName">
+                      <span id="usernameAlert"></span>
+                  </div>
+                  <div class="form-group">
+                      <label class="sr-only" for="form-password">Password</label>
+                      <input type="password" name="form-password" placeholder="Password" class="form-password form-control" id="newPassword">
+                      <span id="passAlert"></span>
+                  </div>
+                  <div class="form-group">
+                      <label class="sr-only" for="form-password">Confirm Password</label>
+                      <input type="password" name="form-password" placeholder="Confirm Password" class="form-password form-control" id="confirmPassword">
+                      <span id="confirmPassAlert"></span>
+                  </div>
+                  <!--<button type="submit" class="btn" onclick="addUser();">Register</button>-->
+                  <input id="loginBtn" type="submit" class="btn" value="Register"></input>
+                  <span id="registerAlert"></span>
+              </form>
+          </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

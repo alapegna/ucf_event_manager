@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>View Events</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+      #button {
+          border: 2px solid black;
+          background: #ffe;
+          border-radius: 5px;
+      }
+      #login_btn {
+          display: block;
+          width: 100%;
+          line-height: 2em;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 5px;
+      }
+      #login_btn:hover {
+          color: red;
+          background: #eff;
+      }
+      #map {
+      height: 400px;
+      width: 100%;
+      }
+
+      .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 2; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+          /*background-color: #fefefe;*/
+          color: #000000;
+          margin: auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+      }
+
+      /* The Close Button */
+      .close {
+          color: #000000;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          text-align: left;
+          padding-bottom: 15px;
+      }
+
+          .close:hover,
+          .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+          }
+
+    </style>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATHjm0t_T-zdeYseGfNkOu86RsiEsERSU&callback=initMap"
+      async defer></script>
+
+  </head>
+
+  <body onload="javascript:checkSuperView()">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">University Event Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="events.html">View Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="createEvent.html">Create Event</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="rso.html">RSOs</a>
+            </li>
+            <li class="nav-item" id="superLink">
+              <a class="nav-link" href="superAdmin.html" >Super Admin</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" onclick="doLogout()" href="login.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" id="main_body">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">View Events</h1>
+          <div id="map"></div>
+          <div class="form-bottom">
+            <form role="form" action="" method="post" class="login-form" onsubmit="return getEvents();">
+              <div class="form-group">
+                <table id="filter" align="center">
+                  <tr>
+                    <td><b>Show Events By:</b></td>
+                  </tr>
+                   <tr>
+                    <td align = "center"><b>Select a Category</b></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <select id="eventCat" onchange="showCat()">
+                        <option>Public</option>
+                        <option>Private</option>
+                        <option>RSO</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="uniList">
+                        <option>Show All Universities</option>
+                        <option>University of Central Florida</option>
+                        <option>University of South Florida</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="locationList">
+                        <option>Show All Locations</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="eventRSO">
+                        <option>Show All RSOs</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="submit" value="Get Events" class="btn btn-primary btn-block">
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <table id="eventTable" align="center" border = 1>
+                  <thead>
+                    <tr>
+                    </tr>
+                    <tr>
+                      <td><b>Event Name</b></td>
+                      <td><b>Event Type</b></td>
+                      <td id="rsoLabel"><b>RSO Sponsor</b></td>
+                      <td><b>Event Description</b></td>
+                      <td><b>Event Date</b></td>
+                      <td><b>University</b></td>
+                      <td><b>Event Location</b></td>
+                      <td><b>Event Start Time</b></td>
+                      <td><b>Event End Time</b></td>
+                      <td><b>Contact Phone</b></td>
+                      <td><b>Contact Email</b></td>
+                      <td  style="white-space: nowrap;"><b>View on Map</b></td>
+                      <td><b>View Comments</b></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <span align = "center" id="getEventsAlert"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="commentModal" class="modal">
+      <div class="modal-content">
+        <div id="parent">
+          <span class="close">&times;</span>
+            <div class="form-bottom">
+              <form role="form" action="" method="post" class="login-form">
+                <div class="form-group">
+                  <h3 align="center">Event Comments</h3>
+                  <table id="commentTable" align="center" border=1>
+                    <thead>
+                      <tr>
+                        <td><b>User Name</b></td>
+                        <td><b>Comment</b></td>
+                        <td><b>Rating</b></td>
+                        <td><b>Edit</b></td>
+                        <td><b>Delete</b></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                  <span id="getCommentsAlert"></span>
+                </div>
+              </form>
+              <form role="form" action="" method="post" class="login-form" onsubmit="return addComment();">
+                <div class="form-group" align="center">
+                  <h3 align="center">Add Comment</h3>
+                  <table id="addCommentTable" align="center">
+                    <thead>
+                      <tr>
+                        <td><b>Comment</b></td>
+                        <td>
+                          <textarea id = "newCommentText" cols = 50></textarea>
+                          <span id="newCommentTextAlert"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><b>Rating</b></td>
+                        <td>
+                          <select id="ratingSelect">
+                            <option>Select a Rating</option>
+                            <option>0.5</option>
+                            <option>1.0</option>
+                            <option>1.5</option>
+                            <option>2.0</option>
+                            <option>2.5</option>
+                            <option>3.0</option>
+                            <option>3.5</option>
+                            <option>4.0</option>
+                            <option>4.5</option>
+                            <option>5.0</option>
+                          </select>
+                          <span id="newCommentRatingAlert"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan = 2>
+                          <input type="submit" value="Add Comment" class="btn btn-primary btn-block">
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                  <span align = "center" id="addCommentsAlert"></span>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
